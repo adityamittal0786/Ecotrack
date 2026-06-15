@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # EcoTrack
 
 **Carbon footprint tracker with real-time insights, gamification, and scenario modelling.**
@@ -129,6 +128,4 @@ Set these environment variables in your Vercel project dashboard:
 | Food        | 1.5–7.2 kg/day   | Our World in Data       |
 | Flights     | 255 kg/flight     | ICAO (domestic India)   |
 | Shopping    | 33–300 kg/item    | DEFRA lifecycle data    |
-=======
-# Ecotrack
->>>>>>> d44d10b5c151ed115bcb6df6b975a30157f2e679
+

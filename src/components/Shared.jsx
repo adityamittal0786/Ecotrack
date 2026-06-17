@@ -19,9 +19,12 @@ export function ScoreRings({ fp, score, color, size = 220 }) {
     { label: 'Shopping',  val: fp.shopping,  r: 42, sw: 11, col: RC[3] },
   ]
 
+  const summary = `Eco score ${score} out of 100. ` +
+    rings.map(r => `${r.label}: ${Math.round(r.val)} kilograms CO2 this month`).join('. ')
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-      <svg viewBox="0 0 220 220" width={size} height={size} style={{ overflow: 'visible', flexShrink: 0 }}>
+      <svg viewBox="0 0 220 220" width={size} height={size} role="img" aria-label={summary} style={{ overflow: 'visible', flexShrink: 0 }}>
         {/* Track rings */}
         {rings.map(r => (
           <circle key={r.label + 't'} cx={cx} cy={cy} r={r.r}
@@ -49,19 +52,19 @@ export function ScoreRings({ fp, score, color, size = 220 }) {
 
         {/* Center */}
         <circle cx={cx} cy={cy} r={28} fill={C.bg} />
-        <text x={cx} y={cy - 4} textAnchor="middle" fill={color}
+        <text x={cx} y={cy - 4} textAnchor="middle" fill={color} aria-hidden="true"
           fontSize="22" fontWeight="800" fontFamily="'Space Grotesk', sans-serif"
           style={{ filter: `drop-shadow(0 0 8px ${color}60)` }}>
           {score}
         </text>
-        <text x={cx} y={cy + 11} textAnchor="middle"
+        <text x={cx} y={cy + 11} textAnchor="middle" aria-hidden="true"
           fill="rgba(241,245,240,0.35)" fontSize="7" letterSpacing="2" fontFamily="'Space Grotesk', sans-serif">
           SCORE
         </text>
       </svg>
 
       {/* Legend — inside the card, below the SVG, not overlapping anything */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 20px', width: '100%', maxWidth: 200 }}>
+      <div aria-hidden="true" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 20px', width: '100%', maxWidth: 200 }}>
         {rings.map(r => {
           const pct = Math.min(100, Math.round(r.val / perCat * 100))
           return (
@@ -104,7 +107,11 @@ export function Chip({ label, color = C.acc }) {
 // ─── Toast notifications ──────────────────────────────────────────────────────
 export function Toasts({ items }) {
   return (
-    <div style={{ position: 'fixed', top: 68, right: 14, zIndex: 9999,
+    <div
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      style={{ position: 'fixed', top: 68, right: 14, zIndex: 9999,
       display: 'flex', flexDirection: 'column', gap: 6, pointerEvents: 'none' }}>
       {items.map(t => (
         <div key={t.id} style={{
@@ -114,7 +121,7 @@ export function Toasts({ items }) {
           fontSize: 13, fontWeight: 500, animation: 'toastIn 0.3s ease',
           fontFamily: "'Space Grotesk', sans-serif",
         }}>
-          {t.ok ? '✓' : '✕'} {t.msg}
+          <span aria-hidden="true">{t.ok ? '✓' : '✕'}</span> {t.msg}
         </div>
       ))}
     </div>

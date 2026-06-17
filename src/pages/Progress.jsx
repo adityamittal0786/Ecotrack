@@ -46,9 +46,9 @@ export default function Progress({ trend, fp, streak }) {
 
         <div style={{ marginBottom:'1.5rem' }}>
           <div style={{ color:C.mut, fontSize:10, letterSpacing:'1.5px', marginBottom:4 }}>ANALYTICS</div>
-          <h2 style={{ fontFamily:FONT, fontSize:'1.6rem', fontWeight:800, color:C.txt, letterSpacing:'-0.5px' }}>
+          <h1 style={{ fontFamily:FONT, fontSize:'1.6rem', fontWeight:800, color:C.txt, letterSpacing:'-0.5px' }}>
             Progress<span style={{ color:C.acc }}>.</span>
-          </h2>
+          </h1>
         </div>
 
         {/* KPI row */}

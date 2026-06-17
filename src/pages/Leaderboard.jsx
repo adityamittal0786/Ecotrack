@@ -54,9 +54,9 @@ export default function Leaderboard({ fp, userData }) {
 
         <div style={{ marginBottom:'1.5rem' }}>
           <div style={{ color:C.mut, fontSize:10, letterSpacing:'1.5px', marginBottom:4 }}>COMMUNITY</div>
-          <h2 style={{ fontFamily:FONT, fontSize:'1.6rem', fontWeight:800, color:C.txt, letterSpacing:'-0.5px' }}>
+          <h1 style={{ fontFamily:FONT, fontSize:'1.6rem', fontWeight:800, color:C.txt, letterSpacing:'-0.5px' }}>
             Leaderboard<span style={{ color:C.acc }}>.</span>
-          </h2>
+          </h1>
           <p style={{ color:C.mut, margin:'0.2rem 0 0', fontSize:14 }}>India region · Ranked by Eco Score</p>
         </div>
 

@@ -43,9 +43,9 @@ export default function ImpactSimulator({ userData }) {
       <div style={{ padding: '1.75rem', maxWidth: 1100, margin: '0 auto', fontFamily: FONT }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ color: C.mut, fontSize: 10, letterSpacing: '1.5px', marginBottom: 4 }}>SCENARIO MODELLING</div>
-          <h2 style={{ fontFamily: FONT, fontSize: '1.6rem', fontWeight: 800, color: C.txt, letterSpacing: '-0.5px' }}>
+          <h1 style={{ fontFamily: FONT, fontSize: '1.6rem', fontWeight: 800, color: C.txt, letterSpacing: '-0.5px' }}>
             Impact Simulator<span style={{ color: C.acc }}>.</span>
-          </h2>
+          </h1>
           <p style={{ color: C.mut, margin: '0.2rem 0 0', fontSize: 14 }}>
             Adjust your habits. See emission changes instantly.
           </p>
@@ -61,16 +61,20 @@ export default function ImpactSimulator({ userData }) {
                 { label: 'Public transit instead of car',  field: 'pubTrans',     min: 0, max: 7, unit: ' days/wk'  },
                 { label: 'Car-free days per week',          field: 'carFree',      min: 0, max: 7, unit: ' days/wk'  },
                 { label: 'Fewer short-haul flights',        field: 'shortFlights', min: 0, max: Math.max(1, userData?.flights || 4), unit: '/yr' },
-              ].map(s => (
-                <div key={s.field} style={{ marginBottom: '0.9rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                    <label style={{ color: C.mut, fontSize: 13 }}>{s.label}</label>
-                    <span style={{ color: C.acc, fontWeight: 700, fontSize: 14 }}>{c[s.field]}{s.unit}</span>
+              ].map(s => {
+                const inputId = `sim-${s.field}`
+                return (
+                  <div key={s.field} style={{ marginBottom: '0.9rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                      <label htmlFor={inputId} style={{ color: C.mut, fontSize: 13 }}>{s.label}</label>
+                      <span style={{ color: C.acc, fontWeight: 700, fontSize: 14 }}>{c[s.field]}{s.unit}</span>
+                    </div>
+                    <input id={inputId} type="range" min={s.min} max={s.max} step={1} value={c[s.field]}
+                      aria-valuetext={`${c[s.field]}${s.unit}`}
+                      onChange={e => upd(s.field, Number(e.target.value))} style={{ width: '100%', accentColor: C.acc }} />
                   </div>
-                  <input type="range" min={s.min} max={s.max} step={1} value={c[s.field]}
-                    onChange={e => upd(s.field, Number(e.target.value))} style={{ width: '100%', accentColor: C.acc }} />
-                </div>
-              ))}
+                )
+              })}
             </div>
 
             {/* Energy */}
@@ -79,16 +83,20 @@ export default function ImpactSimulator({ userData }) {
               {[
                 { label: 'Reduce AC usage',      field: 'acCut',     min: 0, max: Math.min(12, userData?.ac_hours || 6), unit: ' hrs/day less' },
                 { label: 'Cut online shopping',  field: 'onlinePct', min: 0, max: 80, unit: '%' },
-              ].map(s => (
-                <div key={s.field} style={{ marginBottom: '0.9rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                    <label style={{ color: C.mut, fontSize: 13 }}>{s.label}</label>
-                    <span style={{ color: C.acc, fontWeight: 700, fontSize: 14 }}>{c[s.field]}{s.unit}</span>
+              ].map(s => {
+                const inputId = `sim-${s.field}`
+                return (
+                  <div key={s.field} style={{ marginBottom: '0.9rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                      <label htmlFor={inputId} style={{ color: C.mut, fontSize: 13 }}>{s.label}</label>
+                      <span style={{ color: C.acc, fontWeight: 700, fontSize: 14 }}>{c[s.field]}{s.unit}</span>
+                    </div>
+                    <input id={inputId} type="range" min={s.min} max={s.max} step={1} value={c[s.field]}
+                      aria-valuetext={`${c[s.field]}${s.unit}`}
+                      onChange={e => upd(s.field, Number(e.target.value))} style={{ width: '100%', accentColor: C.acc }} />
                   </div>
-                  <input type="range" min={s.min} max={s.max} step={1} value={c[s.field]}
-                    onChange={e => upd(s.field, Number(e.target.value))} style={{ width: '100%', accentColor: C.acc }} />
-                </div>
-              ))}
+                )
+              })}
               <label style={{ display: 'flex', alignItems: 'center', gap: 9, cursor: 'pointer', color: C.mut, fontSize: 13, userSelect: 'none' }}>
                 <input type="checkbox" checked={c.renewable} onChange={e => upd('renewable', e.target.checked)}
                   style={{ accentColor: C.acc, width: 14, height: 14 }} />
@@ -98,10 +106,10 @@ export default function ImpactSimulator({ userData }) {
 
             {/* Diet */}
             <div style={{ ...K.card }}>
-              <div style={{ fontWeight: 700, color: C.txt, fontSize: 14, marginBottom: '0.75rem' }}>🥗 Diet Change</div>
-              <div style={{ display: 'flex', gap: 7 }}>
+              <div id="sim-diet-label" style={{ fontWeight: 700, color: C.txt, fontSize: 14, marginBottom: '0.75rem' }}>🥗 Diet Change</div>
+              <div role="radiogroup" aria-labelledby="sim-diet-label" style={{ display: 'flex', gap: 7 }}>
                 {[['vegan','🌱 Vegan'],['vegetarian','🥗 Veggie'],['nonveg','🍗 Non-Veg']].map(([d, lbl]) => (
-                  <button key={d} onClick={() => upd('dietShift', d)} style={{
+                  <button key={d} role="radio" aria-checked={c.dietShift === d} onClick={() => upd('dietShift', d)} style={{
                     flex: 1, padding: '9px 0', borderRadius: 8, cursor: 'pointer', fontFamily: FONT,
                     border: `1px solid ${c.dietShift === d ? C.acc : C.bdr}`,
                     background: c.dietShift === d ? `${C.acc}12` : 'transparent',

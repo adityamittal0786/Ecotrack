@@ -45,9 +45,9 @@ export default function Dashboard({ fp, score, level, color, xp, trend, userData
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: 10 }}>
           <div>
             <div style={{ color: C.mut, fontSize: 10, letterSpacing: '1.5px', marginBottom: 2 }}>MISSION CONTROL</div>
-            <h2 style={{ fontFamily: FONT, fontSize: '1.6rem', fontWeight: 800, color: C.txt, letterSpacing: '-0.5px' }}>
+            <h1 style={{ fontFamily: FONT, fontSize: '1.6rem', fontWeight: 800, color: C.txt, letterSpacing: '-0.5px' }}>
               {userData?.name || 'Dashboard'}<span style={{ color: C.acc }}>.</span>
-            </h2>
+            </h1>
           </div>
           <div style={{ ...K.card, padding: '0.65rem 1rem', display: 'flex', gap: 8, alignItems: 'center', maxWidth: 380, background: C.surf }}>
             <div style={{ width: 6, height: 6, borderRadius: '50%', background: C.acc, animation: 'pulse 2.2s infinite', flexShrink: 0 }} />

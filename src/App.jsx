@@ -119,19 +119,21 @@ export default function App() {
       <Navbar page={page} setPage={setPage} userName={userData.name} xp={xp} streak={streak} />
 
       <div style={{ animation: 'pageIn 0.3s ease' }}>
-        {page === 'dashboard'    && <Dashboard    {...shared} todayLogs={todayLogs} onLog={handleLog} />}
-        {page === 'simulator'    && <ImpactSimulator userData={userData} />}
-        {page === 'twin'         && <CarbonTwin   fp={fp} />}
-        {page === 'achievements' && <Achievements {...shared} />}
-        {page === 'progress'     && <Progress     {...shared} />}
-        {page === 'leaderboard'  && <Leaderboard  fp={fp} userData={userData} />}
-        {page === 'settings'     && (
-          <Settings
-            {...shared}
-            onUpdate={handleUpdate}
-            onRecalculate={handleRecalculate}
-          />
-        )}
+        <main>
+          {page === 'dashboard'    && <Dashboard    {...shared} todayLogs={todayLogs} onLog={handleLog} />}
+          {page === 'simulator'    && <ImpactSimulator userData={userData} />}
+          {page === 'twin'         && <CarbonTwin   fp={fp} />}
+          {page === 'achievements' && <Achievements {...shared} />}
+          {page === 'progress'     && <Progress     {...shared} />}
+          {page === 'leaderboard'  && <Leaderboard  fp={fp} userData={userData} />}
+          {page === 'settings'     && (
+            <Settings
+              {...shared}
+              onUpdate={handleUpdate}
+              onRecalculate={handleRecalculate}
+            />
+          )}
+        </main>
       </div>
     </div>
   )

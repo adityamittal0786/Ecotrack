@@ -37,9 +37,9 @@ export default function CarbonTwin({ fp }) {
       <div style={{ padding: '1.75rem', maxWidth: 1100, margin: '0 auto', fontFamily: FONT }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ color: C.mut, fontSize: 10, letterSpacing: '1.5px', marginBottom: 4 }}>IMPACT TRANSLATION</div>
-          <h2 style={{ fontFamily: FONT, fontSize: '1.6rem', fontWeight: 800, color: C.txt, letterSpacing: '-0.5px' }}>
+          <h1 style={{ fontFamily: FONT, fontSize: '1.6rem', fontWeight: 800, color: C.txt, letterSpacing: '-0.5px' }}>
             Carbon Twin<span style={{ color: C.acc }}>.</span>
-          </h2>
+          </h1>
           <p style={{ color: C.mut, margin: '0.2rem 0 0', fontSize: 14 }}>
             Your {(y/1000).toFixed(1)}t CO₂/year in things you can picture.
           </p>

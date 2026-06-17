@@ -8,8 +8,8 @@ export const C = {
   dim2: 'rgba(194,245,66,0.08)',
   gold: '#f59e0b',
   txt:  '#f1f5f0',
-  mut:  'rgba(241,245,240,0.5)',
-  dim:  'rgba(241,245,240,0.22)',
+  mut:  'rgba(241,245,240,0.68)',
+  dim:  'rgba(241,245,240,0.45)',
   red:  '#ef4444',
   org:  '#f97316',
   blu:  '#38bdf8',
@@ -78,6 +78,36 @@ export const GLOBAL_CSS = `
   ::-webkit-scrollbar { width: 3px; height: 3px; }
   ::-webkit-scrollbar-thumb { background: rgba(194,245,66,0.25); border-radius: 2px; }
   .eco-nav::-webkit-scrollbar { display: none; }
+
+  /* Visible keyboard-focus ring on every interactive element */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid #c2f542;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Screen-reader-only utility — visually hidden but announced by AT */
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 
   @keyframes fadeUp   { from { opacity:0; transform:translateY(18px) } to { opacity:1; transform:translateY(0) } }
   @keyframes pageIn   { from { opacity:0; transform:translateY(8px)  } to { opacity:1; transform:translateY(0) } }

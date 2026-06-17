@@ -39,9 +39,9 @@ export default function Achievements({ fp, level, color, xp }) {
       <div style={{ padding: '1.75rem', maxWidth: 1100, margin: '0 auto', fontFamily: FONT }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ color: C.mut, fontSize: 10, letterSpacing: '1.5px', marginBottom: 4 }}>GAMIFICATION</div>
-          <h2 style={{ fontFamily: FONT, fontSize: '1.6rem', fontWeight: 800, color: C.txt, letterSpacing: '-0.5px' }}>
+          <h1 style={{ fontFamily: FONT, fontSize: '1.6rem', fontWeight: 800, color: C.txt, letterSpacing: '-0.5px' }}>
             Achievements<span style={{ color: C.acc }}>.</span>
-          </h2>
+          </h1>
         </div>
 
         {/* XP card */}

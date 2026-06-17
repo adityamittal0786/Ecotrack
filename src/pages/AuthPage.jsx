@@ -75,16 +75,25 @@ export default function AuthPage() {
 
           <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:9 }}>
             {mode === 'signup' && (
-              <input value={name} onChange={e => setName(e.target.value)}
-                placeholder="Full name" required style={{ ...K.input }} />
+              <div>
+                <label htmlFor="auth-name" className="sr-only">Full name</label>
+                <input id="auth-name" value={name} onChange={e => setName(e.target.value)}
+                  placeholder="Full name" required style={{ ...K.input }} />
+              </div>
             )}
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-              placeholder="Email address" required style={{ ...K.input }} />
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)}
-              placeholder="Password" required minLength={6} style={{ ...K.input }} />
+            <div>
+              <label htmlFor="auth-email" className="sr-only">Email address</label>
+              <input id="auth-email" type="email" value={email} onChange={e => setEmail(e.target.value)}
+                placeholder="Email address" required style={{ ...K.input }} />
+            </div>
+            <div>
+              <label htmlFor="auth-password" className="sr-only">Password</label>
+              <input id="auth-password" type="password" value={password} onChange={e => setPassword(e.target.value)}
+                placeholder="Password" required minLength={6} style={{ ...K.input }} />
+            </div>
 
             {error && (
-              <div style={{
+              <div role="alert" style={{
                 background: error.includes('Check') ? `${C.acc}10` : 'rgba(239,68,68,0.08)',
                 border: `1px solid ${error.includes('Check') ? C.acc + '40' : 'rgba(239,68,68,0.28)'}`,
                 borderRadius: 8, padding: '8px 12px',
@@ -94,7 +103,7 @@ export default function AuthPage() {
               </div>
             )}
 
-            <button type="submit" disabled={loading} style={{ ...K.btn(true), padding:'12px', width:'100%',
+            <button type="submit" disabled={loading} aria-busy={loading} style={{ ...K.btn(true), padding:'12px', width:'100%',
               fontSize:15, marginTop:4, opacity: loading ? 0.6 : 1 }}>
               {loading ? '···' : mode === 'login' ? 'Sign In →' : 'Create Account →'}
             </button>

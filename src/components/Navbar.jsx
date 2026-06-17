@@ -12,7 +12,7 @@ const NAV = [
 
 export default function Navbar({ page, setPage, userName, xp, streak }) {
   return (
-    <nav style={{
+    <nav aria-label="Main navigation" style={{
       background:    'rgba(9,9,11,0.94)',
       borderBottom:  `1px solid ${C.bdr}`,
       backdropFilter:'blur(14px)',
@@ -44,7 +44,7 @@ export default function Navbar({ page, setPage, userName, xp, streak }) {
         {NAV.map(item => {
           const active = page === item.id
           return (
-            <button key={item.id} onClick={() => setPage(item.id)} style={{
+            <button key={item.id} onClick={() => setPage(item.id)} aria-current={active ? 'page' : undefined} style={{
               padding:       '5px 11px',
               borderRadius:  7,
               border:        'none',
@@ -66,13 +66,13 @@ export default function Navbar({ page, setPage, userName, xp, streak }) {
 
       {/* Right side */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexShrink: 0 }}>
-        <span style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.22)',
+        <span aria-label={`${streak} day streak`} style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.22)',
           borderRadius: 7, padding: '3px 9px', fontSize: 12, color: C.gold, fontWeight: 700 }}>
-          🔥{streak}d
+          <span aria-hidden="true">🔥</span>{streak}d
         </span>
-        <span style={{ background: `${C.acc}10`, border: `1px solid ${C.acc}25`,
+        <span aria-label={`${xp} experience points`} style={{ background: `${C.acc}10`, border: `1px solid ${C.acc}25`,
           borderRadius: 7, padding: '3px 9px', fontSize: 12, color: C.acc, fontWeight: 700 }}>
-          ⚡{xp}
+          <span aria-hidden="true">⚡</span>{xp}
         </span>
         <span style={{ color: C.dim, fontSize: 12, fontWeight: 500 }}>
           {(userName || '').split(' ')[0]}

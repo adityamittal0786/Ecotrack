@@ -81,12 +81,16 @@ export default function Onboarding({ onComplete, isRecalculate = false }) {
         </p>
 
         {!isRecalculate && (
-          <input
-            value={name} onChange={e => setName(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && name.trim() && setStep(0)}
-            placeholder="Your name to begin"
-            style={{ ...K.input, marginBottom: 10, fontSize: 15, padding: '13px 16px' }}
-          />
+          <div>
+            <label htmlFor="onboard-name" className="sr-only">Your name</label>
+            <input
+              id="onboard-name"
+              value={name} onChange={e => setName(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && name.trim() && setStep(0)}
+              placeholder="Your name to begin"
+              style={{ ...K.input, marginBottom: 10, fontSize: 15, padding: '13px 16px' }}
+            />
+          </div>
         )}
 
         <button
@@ -202,9 +206,11 @@ export default function Onboarding({ onComplete, isRecalculate = false }) {
 
       <div style={{ maxWidth: 520, width: '100%', position: 'relative', animation: 'pageIn 0.3s ease' }}>
         {/* Progress */}
-        <div style={{ display: 'flex', gap: 5, marginBottom: '2.25rem' }}>
+        <div role="progressbar" aria-valuenow={step + 1} aria-valuemin={1} aria-valuemax={STEPS.length}
+          aria-label={`Step ${step + 1} of ${STEPS.length}: ${cur.title}`}
+          style={{ display: 'flex', gap: 5, marginBottom: '2.25rem' }}>
           {STEPS.map((_, i) => (
-            <div key={i} style={{
+            <div key={i} aria-hidden="true" style={{
               flex: 1, height: 3, borderRadius: 2,
               background: i < step ? 'rgba(194,245,66,0.75)' : i === step ? C.acc : C.bdr,
               transition: 'background 0.35s',
@@ -223,10 +229,10 @@ export default function Onboarding({ onComplete, isRecalculate = false }) {
         {/* Diet selector on final step */}
         {step === 2 && (
           <div style={{ marginBottom: '1.5rem' }}>
-            <div style={{ color: C.mut, fontSize: 10, letterSpacing: '1.5px', marginBottom: 8, fontWeight: 600 }}>DIET</div>
-            <div style={{ display: 'flex', gap: 7 }}>
+            <div id="diet-label" style={{ color: C.mut, fontSize: 10, letterSpacing: '1.5px', marginBottom: 8, fontWeight: 600 }}>DIET</div>
+            <div role="radiogroup" aria-labelledby="diet-label" style={{ display: 'flex', gap: 7 }}>
               {[['vegan', '🌱 Vegan'], ['vegetarian', '🥗 Veggie'], ['nonveg', '🍗 Non-Veg']].map(([d, lbl]) => (
-                <button key={d} onClick={() => setDiet(d)} style={{
+                <button key={d} role="radio" aria-checked={diet === d} onClick={() => setDiet(d)} style={{
                   flex: 1, padding: '9px 0', borderRadius: 8, cursor: 'pointer',
                   fontFamily: "'Space Grotesk', sans-serif",
                   border: `1px solid ${diet === d ? C.acc : C.bdr}`,
@@ -241,18 +247,22 @@ export default function Onboarding({ onComplete, isRecalculate = false }) {
 
         {/* Sliders */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginBottom: '1.75rem' }}>
-          {cur.fields.map(f => (
-            <div key={f.key}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 7 }}>
-                <label style={{ color: C.mut, fontSize: 13 }}>{f.label}</label>
-                <span style={{ color: C.acc, fontWeight: 800, fontSize: 15 }}>
-                  {vals[f.key]}<span style={{ fontSize: 11, fontWeight: 500, color: C.dim, marginLeft: 3 }}>{f.unit}</span>
-                </span>
+          {cur.fields.map(f => {
+            const inputId = `onboard-${f.key}`
+            return (
+              <div key={f.key}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 7 }}>
+                  <label htmlFor={inputId} style={{ color: C.mut, fontSize: 13 }}>{f.label}</label>
+                  <span style={{ color: C.acc, fontWeight: 800, fontSize: 15 }}>
+                    {vals[f.key]}<span style={{ fontSize: 11, fontWeight: 500, color: C.dim, marginLeft: 3 }}>{f.unit}</span>
+                  </span>
+                </div>
+                <input id={inputId} type="range" min={0} max={f.max} step={1} value={vals[f.key]}
+                  aria-valuetext={`${vals[f.key]} ${f.unit}`}
+                  onChange={e => upd(f.key, e.target.value)} style={{ width: '100%', accentColor: C.acc }} />
               </div>
-              <input type="range" min={0} max={f.max} step={1} value={vals[f.key]}
-                onChange={e => upd(f.key, e.target.value)} style={{ width: '100%', accentColor: C.acc }} />
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Live estimate */}

@@ -31,9 +31,9 @@ export default function Settings({ userData, fp, score, level, color, onUpdate, 
 
         <div style={{ marginBottom:'1.5rem' }}>
           <div style={{ color:C.mut, fontSize:10, letterSpacing:'1.5px', marginBottom:4 }}>ACCOUNT</div>
-          <h2 style={{ fontFamily:FONT, fontSize:'1.6rem', fontWeight:800, color:C.txt, letterSpacing:'-0.5px' }}>
+          <h1 style={{ fontFamily:FONT, fontSize:'1.6rem', fontWeight:800, color:C.txt, letterSpacing:'-0.5px' }}>
             Settings<span style={{ color:C.acc }}>.</span>
-          </h2>
+          </h1>
         </div>
 
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 }}>
@@ -45,18 +45,18 @@ export default function Settings({ userData, fp, score, level, color, onUpdate, 
             <div style={{ ...K.card }}>
               <div style={{ fontWeight:700, color:C.txt, fontSize:14, marginBottom:'1.1rem' }}>Profile</div>
               <div style={{ marginBottom:'0.9rem' }}>
-                <label style={{ color:C.mut, fontSize:11, display:'block', marginBottom:6, letterSpacing:'0.5px' }}>
+                <label htmlFor="settings-name" style={{ color:C.mut, fontSize:11, display:'block', marginBottom:6, letterSpacing:'0.5px' }}>
                   YOUR NAME
                 </label>
-                <input value={name} onChange={e => setName(e.target.value)} style={{ ...K.input }} />
+                <input id="settings-name" value={name} onChange={e => setName(e.target.value)} style={{ ...K.input }} />
               </div>
               <div style={{ marginBottom:'1.1rem' }}>
-                <label style={{ color:C.mut, fontSize:11, display:'block', marginBottom:6, letterSpacing:'0.5px' }}>
+                <div id="settings-diet-label" style={{ color:C.mut, fontSize:11, display:'block', marginBottom:6, letterSpacing:'0.5px' }}>
                   DIET TYPE
-                </label>
-                <div style={{ display:'flex', gap:7 }}>
+                </div>
+                <div role="radiogroup" aria-labelledby="settings-diet-label" style={{ display:'flex', gap:7 }}>
                   {[['vegan','🌱 Vegan'],['vegetarian','🥗 Veggie'],['nonveg','🍗 Non-Veg']].map(([d,lbl]) => (
-                    <button key={d} onClick={() => setDiet(d)} style={{
+                    <button key={d} role="radio" aria-checked={diet===d} onClick={() => setDiet(d)} style={{
                       flex:1, padding:'9px 0', borderRadius:8, cursor:'pointer', fontFamily:FONT,
                       border:`1px solid ${diet===d ? C.acc : C.bdr}`,
                       background: diet===d ? `${C.acc}12` : 'transparent',
